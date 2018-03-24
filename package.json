@@ -2,7 +2,7 @@
   "name": "project-charlie",
   "version": "1.0.0",
   "description": "Backend for the Project Charlie",
-  "engines": {
+  "engines": {  
     "node": "9.2.1"
   },
   "main": "app.js",
