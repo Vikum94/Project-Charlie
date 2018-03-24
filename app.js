@@ -2,16 +2,15 @@ var MonogoClient = require("mongodb").MongoClient;
 var express = require("express");
 var bodyParser = require("body-parser");
 
-// var url = "mongodb://localhost:27017/mydb";
-var url = "mongodb://<dbuser>:<dbpassword>@ds052629.mlab.com:52629/sales-items"
-
+var url = "mongodb://localhost:27017/mydb";
+// var url = "mongodb://localhost:27017/";
 
 var app = express();
 app.use(bodyParser.json());
 
 var db;
 
-MonogoClient.connect(url, (err, cli) => {
+MonogoClient.connect(process.env.MONGODB_URI || url, (err, cli) => {
     if (err) console.log(err);
 
     console.log("DB connection ready");
@@ -49,3 +48,6 @@ app.post("/api/items", (req, res) => {
     });
 });
  
+app.get("/", (req, res) =>{
+    res.status(200).json('Hi there!');
+});
