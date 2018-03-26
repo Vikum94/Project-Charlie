@@ -91,7 +91,7 @@ app.get("/", auth, (req, res) =>{
     res.status(200).json('Hi there!');
 });
 
-app.get("/api/items/deleteall", (req, res) => {
+app.get("/api/items/deleteall", auth, (req, res) => {
     db.collection(coll).remove({}, (err, result) => {
         if (err) handleErrors(err, err.message, "Can not delete");
         else res.status(200).json(result);
