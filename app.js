@@ -66,8 +66,6 @@ app.post("/api/items", auth, (req, res) => {
     
     newItem.createDate = new Date();
 
-    if (!req.body.id) handleErrors(res, "No id given", "Please provide the id", 400);
-    // check if request passes this even id is not given and get inserted;
     db.collection(coll).insertOne(newItem, (err, doc) => {
         if (err) handleErrors(res, err.message, "Failed to create new item");
         else res.status(201).json(doc.ops[0]);
