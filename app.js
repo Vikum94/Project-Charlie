@@ -61,6 +61,34 @@ app.get("/api/items", auth, (req, res) => {
     });
 });
 
+// app.get("/api/items/:id", auth, (req, res)=> {
+//     db.collection(coll).find({_id: new ObjectID(req.params.id)}).toArray((err, doc) => {
+//         if (err) handleErrors(res, err.message, "Check id again");
+//         else res.status(200).json(doc);
+//     });
+// });
+
+app.get("/api/items/:id=:val", auth, (req, res) => {
+    var id = req.params.id;
+    var val = req.params.val;
+    console.log(id, val);
+    if (id == "_id") {
+        console.log('here');
+        db.collection(coll).find({_id : new ObjectID(val)}).toArray((err, doc) => {
+            if (err) handleErrors(res, err.message, "No item found");
+            else res.status(200).json(doc);
+        });
+    }else {
+        id = id.toString;
+        val = val.toString;
+        db.collection(coll).find({id : val}).toArray((err, doc) => {
+            if (err) handleErrors(res, err.message, "No item found");
+            else res.status(200).json(doc);
+        });
+    }
+    
+});
+
 app.post("/api/items", auth, (req, res) => {
     var newItem = req.body;
     
